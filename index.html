@@ -10,6 +10,89 @@
     <title>My Library</title>
 </head>
 <body>
+    <header class="header">
+        <img src="#" alt="MyLibrary Logo" class="header__logo">
+        <div class="sign-area">
+            <a href="#" class="sign-area__btn sign-area__btn--sign-in">Sign in</a>
+            <a href="#" class="sign-area__btn sign-area__btn--sign-up">Sign up</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="control-panel">
+            <div class="control-panel__new-book">Add new book</div>
+            <div class="control-panel__sort-books">Sort books</div>
+            <form class="find-book">
+                <input type="text" class="find-book__field" placeholder="Find book in your library">
+                <button class="find-book__btn">Find</button>
+            </form>
+        </div>
+    
+        <div class="books">
+            <ul class="books__list">
+                <li>
+                    <div class="books__data">
+                        <h3 class="books__title">Some title</h3>
+                        <p class="books__author">Some author</p>
+                        <p class="books__status books__status--not-readed">Not readed</p>
+                    </div>
+                    <div class="actions">
+                        <ul class="actions__list">
+                            <li class="actions__btn">More</li>
+                            <li class="actions__btn">Change status</li>
+                            <li class="actions__btn">Delete book</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="books__data">
+                        <h3 class="books__title">Some title</h3>
+                        <p class="books__author">Some author</p>
+                        <p class="books__status books__status--readed">Readed</p>
+                    </div>
+                    <div class="actions">
+                        <ul class="actions__list">
+                            <li class="actions__btn">More</li>
+                            <li class="actions__btn">Change status</li>
+                            <li class="actions__btn">Delete book</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    
+        <div class="wish">
+            <ul class="wish__list">
+                <li>
+                    <div class="books__data">
+                        <h3 class="books__title">Some title</h3>
+                        <p class="books__author">Some author</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="books__data">
+                        <h3 class="books__title">Some title</h3>
+                        <p class="books__author">Some author</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="books__data">
+                        <h3 class="books__title">Some title</h3>
+                        <p class="books__author">Some author</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <div class="new-book">
+        <form class="new-book__form"></form>
+    </div>
+
+    <footer class="footer">
+
+    </footer>
+
     
     
 </body>
