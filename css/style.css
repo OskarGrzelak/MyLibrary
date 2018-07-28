@@ -89,6 +89,70 @@ body {
   border-bottom: 1px solid #d61fff;
   color: #d61fff; }
 
+.form-btn {
+  background-color: #fff;
+  border: none;
+  font-size: 1.4rem;
+  display: block; }
+
+.search {
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .4s; }
+  .search__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 40rem;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2); }
+  .search__form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; }
+  .search__group:not(:last-child) {
+    margin-bottom: 2rem; }
+  .search__input {
+    font-size: 1.4rem;
+    font-family: inherit;
+    color: inherit;
+    padding: 1.5rem 2rem;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #444;
+    width: 100%;
+    display: block; }
+    .search__input:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+      border: 1px solid #d61fff; }
+  .search__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 2rem;
+    margin-top: .7rem;
+    display: block;
+    transition: all .3s; }
+  .search__input:placeholder-shown + .search__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem); }
+  .search__visible {
+    opacity: 1;
+    visibility: visible; }
+
 .wish {
   width: 100%;
   padding: 1rem;
