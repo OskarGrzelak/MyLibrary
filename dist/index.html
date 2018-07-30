@@ -172,7 +172,7 @@
 
         <div class="search">
             <div class="search__container">
-                <form class="search__form">
+                <form class="search__form" id="new-book-search">
                     <div class="search__group">
                         <input type="text" class="search__input" placeholder="Title" id="title">
                         <label for="title" class="search__label">Title</label>
@@ -189,6 +189,22 @@
                         <button class="btn form-btn">Search &rarr;</button>
                     </div>
                 </form>
+                <div class="search__results">
+                    <ul class="results__list" id="search-list">
+                        <!-- <li>
+                            <div class="results__item">
+                                <h3 class="results__title">Some title</h3>
+                                <p class="results__author">Some author</p>
+                                <div class="results__actions">
+                                    <ul>
+                                        <li class="results__action">Add to lib</li>
+                                        <li class="results__action">Add as wish</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
             </div>
         </div>
 

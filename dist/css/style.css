@@ -109,22 +109,20 @@ body {
   transition: all .4s; }
   .search__container {
     position: absolute;
+    display: table;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 40rem;
+    width: 80%;
+    padding: 5rem;
     background-color: #fff;
     border-radius: 6px;
     box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2); }
   .search__form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%; }
+    display: table-cell;
+    width: 40%; }
   .search__group:not(:last-child) {
-    margin-bottom: 2rem; }
+    margin-bottom: 1.5rem; }
   .search__input {
     font-size: 1.4rem;
     font-family: inherit;
@@ -133,7 +131,7 @@ body {
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid #444;
-    width: 100%;
+    width: 90%;
     display: block; }
     .search__input:focus {
       outline: none;
@@ -153,6 +151,70 @@ body {
   .search__visible {
     opacity: 1;
     visibility: visible; }
+  .search__results {
+    display: table-cell;
+    width: 60%;
+    background-color: #eee;
+    height: 100%;
+    border-radius: 6px;
+    padding: 3rem 0; }
+
+.results__list {
+  list-style: none; }
+
+.results__item {
+  background-color: #fff;
+  width: 90%;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 0 auto .5rem auto;
+  position: relative; }
+  .results__item:hover .results__actions {
+    opacity: 1; }
+
+.results__title {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: .1rem;
+  line-height: 1.6rem;
+  width: 80%; }
+
+.results__author {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: .1rem;
+  line-height: 1.2rem;
+  width: 80%; }
+
+.results__actions {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  border-radius: 6px;
+  padding: .5rem 1rem;
+  background-color: #f953c6;
+  opacity: 0;
+  transition: opacity .5s; }
+
+.results__action {
+  list-style: none;
+  font-size: .9rem;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 1px;
+  padding: 1.5px;
+  cursor: default;
+  transition: all .2s;
+  background-color: #f953c6 !important; }
+  .results__action:not(:last-child) {
+    margin-bottom: .2rem; }
+  .results__action:hover {
+    background-color: #fc2abd !important; }
 
 .wish {
   width: 100%;

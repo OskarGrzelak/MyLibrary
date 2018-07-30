@@ -12,26 +12,24 @@
 
     &__container {
         position: absolute;
+        display: table;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 50%;
-        height: 40rem;
+        width: 80%;
+        padding: 5rem;
         background-color: $color-white;
         border-radius: 6px;
         box-shadow: 0 2rem 4rem rgba($color-black, .2);
     }
 
     &__form {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 50%;
+        display: table-cell;
+        width: 40%;
     }
 
     &__group:not(:last-child) {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     &__input {
@@ -42,7 +40,7 @@
         border-radius: 6px;
         background-color: rgba($color-white, 0.5);
         border: 1px solid $color-grey-dark;
-        width: 100%;
+        width: 90%;
         display: block;
 
         &:focus {
@@ -71,5 +69,87 @@
         opacity: 1;
         visibility: visible;
     }
+
+    &__results {
+        display: table-cell;
+        width: 60%;
+        background-color: $color-grey-light;
+        height: 100%;
+        border-radius: 6px;
+        padding: 3rem 0;
+    }
 }
 
+.results {
+
+    &__list {
+        list-style: none;
+    }
+
+    &__item {
+        background-color: $color-white;
+        width: 90%;
+        padding: 1rem;
+        border-radius: 6px;
+        margin: 0 auto .5rem auto;
+        position: relative;
+
+        &:hover .results__actions {
+            opacity: 1;
+        }
+
+        
+    }
+
+    &__title {
+        font-size: 1.6rem;
+        text-transform: uppercase;
+        font-weight: 300;
+        letter-spacing: .1rem;
+        line-height: 1.6rem;
+        width: 80%;
+    }
+
+    &__author {
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: 300;
+        letter-spacing: .1rem;
+        line-height: 1.2rem;
+        width: 80%;
+    }
+
+    &__actions {
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        width: 20%;
+        height: 100%;
+        border-radius: 6px;
+        padding: .5rem 1rem;
+        background-color: #f953c6;
+        opacity: 0;
+        transition: opacity .5s;
+    }
+
+    &__action {
+        list-style: none;
+        font-size: .9rem;
+        text-transform: uppercase;
+        color: $color-white;
+        border-radius: 1px;
+        padding: 1.5px;
+        cursor: default;
+        transition: all .2s;
+        background-color: #f953c6 !important;
+        
+        &:not(:last-child) {
+            margin-bottom: .2rem;
+        }
+
+        &:hover {
+            background-color: #fc2abd !important;
+        }
+    }
+}
