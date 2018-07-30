@@ -92,6 +92,7 @@ body {
 .form-btn {
   background-color: #fff;
   border: none;
+  border-bottom: 1px solid transparent;
   font-size: 1.4rem;
   display: block; }
 

@@ -1,0 +1,33 @@
+.btn {
+
+    &,
+    &:link,
+    &:visited {
+        text-decoration: none;
+        text-transform: uppercase;
+        display: inline-block;
+        font-size: 1.6rem;
+        color: $color-grey-dark;
+        padding-bottom: .5px;
+        border-bottom: 1px solid transparent;
+        transition: all .2s;
+
+        &:not(:last-child) {
+            margin-right: 3rem;
+        }
+    }
+
+    &:hover {
+        border-bottom: 1px solid $color-main;
+        color: $color-main;
+    }
+    
+}
+
+.form-btn {
+    background-color: $color-white;
+    border: none;
+    border-bottom: 1px solid transparent;
+    font-size: 1.4rem;
+    display: block;
+}

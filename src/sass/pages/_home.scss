@@ -1,0 +1,57 @@
+.control-panel {
+    padding: 0 3rem;
+
+    &__action {
+        width: 100%;
+        padding: .5rem;
+        font-size: 1.6rem;
+        text-transform: uppercase;
+        cursor: default;
+        border-left: 2px solid transparent;
+        transition: all .2s;
+
+        &:hover {
+            color: $color-main;
+            border-left: 2px solid $color-main;
+        }
+    }
+}
+
+.books-panel {
+    background-color: $color-grey-light;
+    border-radius: 6px;
+    padding: 3rem;
+
+    &__list {
+        list-style: none;
+    }
+}
+
+.wish-panel {
+    padding: 0 3rem;
+
+    &__heading {
+        text-align: center;
+        font-size: 4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        background-image: linear-gradient(to right bottom, #f953c6, #b91d73);
+        display: block;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    &__list {
+        list-style: none;
+        margin-top: 3rem;
+
+        & li {
+            border-radius: 6px;
+
+            &:nth-of-type(2) {
+                background-color: $color-grey-light;
+            }
+        }
+    }
+}
