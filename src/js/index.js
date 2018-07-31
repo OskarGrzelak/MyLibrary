@@ -11,6 +11,7 @@ const elements = {
     searchISBN: document.getElementById('isbn'),
     searchList: document.getElementById('search-list'),
     addToLib: document.getElementsByClassName('results__action--add'),
+    delFromLib: document.getElementsByClassName('book__action--del'),
     libraryList: document.getElementsByClassName('books-panel__list')[0]
 };
 
@@ -39,8 +40,28 @@ class Search {
     }
 }
 
-const getInput = () => elements.searchTitle.value;
-const clearInput = () => elements.searchTitle.value = '';
+const getInput = () => {
+    const title = elements.searchTitle.value;
+    const author = elements.searchAuthor.value;
+    const isbn = elements.searchISBN.value;
+    let query = '';
+    if(title) {
+        query += `intitle:${title}+`;
+    }
+    if(author) {
+        query += `inauthor:${author}+`;
+    }
+    if(isbn) {
+        query += `isbn:${isbn}`;
+    }
+    return query;
+}
+
+const clearInput = () => {
+    elements.searchTitle.value = '';
+    elements.searchAuthor.value = '';
+    elements.searchISBN.value = '';
+}
 const clearResults = () => elements.searchList.innerHTML = '';
 
 const limitTitle = (title, limit = 42) => {
@@ -78,7 +99,11 @@ const renderResult = (result) => {
 };
 
 const renderResults = (results) => {
+    if(results) {
     results.forEach(renderResult);
+    } else {
+        alert('there are no results');
+    }
 };
 
 // BOOK
@@ -114,11 +139,24 @@ class Library {
         this.books.push(new Book(id));
     }
 
+    deleteBook(id) {
+        const index = this.books.findIndex(el => el.id === id);
+        if(this.books.length === 1 || index === this.books.length-1) {
+            this.books.pop();
+        } else {
+            for (let i = index; i < this.books.length-1; i++) {
+                this.books[i] = this.books[i+1];
+            }
+            this.books.pop();
+        }
+        this.num--;
+    }
+
     renderLibrary(books) {
         books.forEach(book => {
             const markup = `
             <li>
-                <div class="book">
+                <div class="book" id="${book.id}">
                     <h3 class="book__title">${book.title}</h3>
                     <p class="book__author">${book.author}</p>
                     <p class="book__status book__status--not-readed">Not readed</p>
@@ -126,7 +164,7 @@ class Library {
                         <ul>
                             <li class="book__action">More</li>
                             <li class="book__action">Change status</li>
-                            <li class="book__action">Delete book</li>
+                            <li class="book__action book__action--del">Delete book</li>
                         </ul>
                     </div>
                 </div>
@@ -197,3 +235,14 @@ elements.searchList.addEventListener('click', async e => {
         state.library.renderLibrary(state.library.books);
     }
 });
+
+elements.libraryList.addEventListener('click', e => {
+    const del = e.target.closest('.book__action--del');
+    if(del) {
+        const id = e.target.parentElement.parentElement.parentElement.id;
+        state.library.deleteBook(id);
+        clearLibrary();
+        state.library.renderLibrary(state.library.books);
+    }
+});
+
