@@ -13,18 +13,15 @@ const elements = {
     addToLib: document.getElementsByClassName('results__action--add'),
     delFromLib: document.getElementsByClassName('book__action--del'),
     libraryList: document.getElementsByClassName('books-panel__list')[0],
-    wishList: document.getElementsByClassName('wish-panel__list')[0]
+    wishList: document.getElementsByClassName('wish-panel__list')[0],
+    bookDetails: document.getElementsByClassName('details')[0],
+    bookTitle: document.getElementById('book-title'),
+    bookAuthor: document.getElementById('book-author'),
+    bookCover: document.getElementById('book-cover'),
+    bookDescription: document.getElementById('book-description')
 };
 
 // SEARCH PANEL
-
-elements.openSearchPanel.addEventListener('click', () => elements.searchPanel.classList.add('search__visible'));
-elements.searchPanel.addEventListener('click', e => {
-    e.target.classList.remove('search__visible');
-    if (!elements.searchPanel.classList.contains('search__visible')) {
-        setTimeout(clearResults, 400);
-    }
-});
 
 class Search {
     constructor(query) {
@@ -127,7 +124,13 @@ class Book {
 }
 
 /* const book = new Book('zyTCAlFPjgYC');
-book.getBook(); */
+book.getBook();
+console.log(book);
+//book.showBookDetails();
+const title = book.title;
+console.log(title);
+elements.bookTitle.textContent = book.title;
+console.log(elements.bookTitle.textContent); */
 
 // LIBRARY
 class Library {
@@ -153,6 +156,14 @@ class Library {
         this.num--;
     }
 
+    showBookDetails(id) {
+        const index = this.books.findIndex(el => el.id === id);
+        elements.bookTitle.textContent = this.books[index].title;
+        elements.bookAuthor.textContent = this.books[index].author;
+        elements.bookDescription.innerHTML = this.books[index].description;
+        elements.bookCover.src = this.books[index].cover;
+     }
+
     renderLibrary(books) {
         books.forEach(book => {
             const markup = `
@@ -163,7 +174,7 @@ class Library {
                     <p class="book__status book__status--not-readed">Not readed</p>
                     <div class="book__actions">
                         <ul>
-                            <li class="book__action">More</li>
+                            <li class="book__action book__action--show">More</li>
                             <li class="book__action">Change status</li>
                             <li class="book__action book__action--del">Delete book</li>
                         </ul>
@@ -192,6 +203,7 @@ class WishList {
     moveBook(id) {
         const index = this.wishes.findIndex(el => el.id === id);
         state.library.books.push(this.wishes[index]);
+        state.library.num++;
         this.deleteBook(id);
     }
 
@@ -261,6 +273,14 @@ const controlSearch = async () => {
     }
 }
 
+elements.openSearchPanel.addEventListener('click', () => elements.searchPanel.classList.add('u-visible'));
+elements.searchPanel.addEventListener('click', e => {
+    e.target.classList.remove('u-visible');
+    if (!elements.searchPanel.classList.contains('u-visible')) {
+        setTimeout(clearResults, 400);
+    }
+});
+
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
     controlSearch();
@@ -282,7 +302,7 @@ const addBookToLibrary = async (id) => {
 elements.searchList.addEventListener('click', async e => {
     const add = e.target.closest('.results__action--add');
     if(add) {
-        elements.searchPanel.classList.remove('search__visible');
+        elements.searchPanel.classList.remove('u-visible');
         setTimeout(clearResults, 400);
         const id = e.target.parentElement.parentElement.parentElement.id;
         await addBookToLibrary(id);
@@ -317,7 +337,7 @@ const addBookToWishList = async (id) => {
 elements.searchList.addEventListener('click', async e => {
     const wish = e.target.closest('.results__action--wish');
     if(wish) {
-        elements.searchPanel.classList.remove('search__visible');
+        elements.searchPanel.classList.remove('u-visible');
         setTimeout(clearResults, 400);
         const id = e.target.parentElement.parentElement.parentElement.id;
         await addBookToWishList(id);
@@ -348,5 +368,18 @@ elements.wishList.addEventListener('click', e => {
     }
 });
 
+// control book detail
 
+elements.libraryList.addEventListener('click', e => {
+    const show = e.target.closest('.book__action--show');
+    if(show) {
+        const id = e.target.parentElement.parentElement.parentElement.id;
+        state.library.showBookDetails(id);
 
+        elements.bookDetails.classList.add('u-visible');
+    }
+});
+
+elements.bookDetails.addEventListener('click', e => {
+    e.target.classList.remove('u-visible');
+});
