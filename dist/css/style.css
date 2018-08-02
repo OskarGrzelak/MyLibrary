@@ -26,6 +26,10 @@ body {
   border-radius: 6px;
   box-shadow: 0 2rem 6rem 0.5rem rgba(68, 68, 68, 0.4); }
 
+.u-visible {
+  opacity: 1 !important;
+  visibility: visible !important; }
+
 .book {
   width: 90%;
   background-color: #fff;
@@ -81,7 +85,8 @@ body {
   color: #444;
   padding-bottom: .5px;
   border-bottom: 1px solid transparent;
-  transition: all .2s; }
+  transition: all .2s;
+  cursor: default; }
   .btn:not(:last-child), .btn:link:not(:last-child), .btn:visited:not(:last-child) {
     margin-right: 3rem; }
 
@@ -95,6 +100,63 @@ body {
   border-bottom: 1px solid transparent;
   font-size: 1.4rem;
   display: block; }
+
+.details {
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .4s; }
+  .details__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    padding: 5rem;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2); }
+  .details__table {
+    display: table;
+    margin-top: 3rem; }
+  .details__hader {
+    width: 100%; }
+  .details__title {
+    display: block;
+    width: 100%;
+    font-size: 4rem;
+    text-transform: uppercase;
+    font-weight: 400; }
+  .details__author {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 400; }
+  .details__left {
+    display: table-cell;
+    width: 33.3333%;
+    vertical-align: top; }
+  .details__cover {
+    height: 40rem;
+    width: auto;
+    display: block; }
+  .details__right {
+    display: table-cell;
+    width: 66.6667%;
+    vertical-align: top; }
+  .details__description {
+    width: 95%;
+    vertical-align: center;
+    font-size: 1.6rem; }
+  .details__buttons {
+    position: absolute;
+    right: 5rem;
+    bottom: 5rem; }
 
 .search {
   height: 100vh;
@@ -148,9 +210,6 @@ body {
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4rem); }
-  .search__visible {
-    opacity: 1;
-    visibility: visible; }
   .search__results {
     display: table-cell;
     width: 60%;

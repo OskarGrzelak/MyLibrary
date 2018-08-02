@@ -1,0 +1,77 @@
+.details {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba($color-black, .9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .4s;
+
+    &__container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        padding: 5rem;
+        background-color: $color-white;
+        border-radius: 6px;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+    }
+
+    &__table {
+        display: table;
+        margin-top: 3rem;
+    }
+
+    &__hader {
+        width: 100%;
+    }
+
+    &__title {
+        display: block;
+        width: 100%;
+        font-size: 4rem;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+    &__author {
+        font-size: 3rem;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+    &__left {
+        display: table-cell;
+        width: 33.3333%;
+        vertical-align: top;
+    }
+
+    &__cover {
+        height: 40rem;
+        width: auto;
+        display: block;
+    }
+
+    &__right {
+        display: table-cell;
+        width: 66.6667%;
+        vertical-align: top;
+    }
+
+    &__description {
+        width: 95%;
+        vertical-align: center;
+        font-size: 1.6rem;
+    }
+
+    &__buttons {
+        position: absolute;
+        right: 5rem;
+        bottom: 5rem;
+    }
+}

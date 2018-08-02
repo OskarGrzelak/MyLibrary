@@ -64,11 +64,6 @@
         visibility: hidden;
         transform: translateY(-4rem);
     }
-    
-    &__visible {
-        opacity: 1;
-        visibility: visible;
-    }
 
     &__results {
         display: table-cell;
