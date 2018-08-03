@@ -18,7 +18,9 @@ const elements = {
     bookTitle: document.getElementById('book-title'),
     bookAuthor: document.getElementById('book-author'),
     bookCover: document.getElementById('book-cover'),
-    bookDescription: document.getElementById('book-description')
+    bookDescription: document.getElementById('book-description'),
+    removeBook: document.getElementById('remove-book'),
+    changeBookStatus: document.getElementById('change-status')
 };
 
 // SEARCH PANEL
@@ -108,6 +110,7 @@ const renderResults = (results) => {
 class Book {
     constructor(id) {
         this.id = id;
+        this.status = 'not readed';
     }
 
     async getBook() {
@@ -121,6 +124,14 @@ class Book {
             console.log(err);
         }
     }
+
+    changeStatus() {
+        if (this.status === 'not readed') {
+            this.status = 'readed';
+        } else {
+            this.status = 'not readed';
+        };
+    } 
 }
 
 /* const book = new Book('zyTCAlFPjgYC');
@@ -162,6 +173,7 @@ class Library {
         elements.bookAuthor.textContent = this.books[index].author;
         elements.bookDescription.innerHTML = this.books[index].description;
         elements.bookCover.src = this.books[index].cover;
+        state.currentBook = this.books[index];
      }
 
     renderLibrary(books) {
@@ -171,11 +183,11 @@ class Library {
                 <div class="book" id="${book.id}">
                     <h3 class="book__title">${book.title}</h3>
                     <p class="book__author">${book.author}</p>
-                    <p class="book__status book__status--not-readed">Not readed</p>
+                    <p class="book__status book__status--not-readed">${book.status === 'not readed' ? 'You have not read this book yet' : 'You have read this book'}</p>
                     <div class="book__actions">
                         <ul>
                             <li class="book__action book__action--show">More</li>
-                            <li class="book__action">Change status</li>
+                            <li class="book__action book__action--change">Change status</li>
                             <li class="book__action book__action--del">Delete book</li>
                         </ul>
                     </div>
@@ -312,6 +324,17 @@ elements.searchList.addEventListener('click', async e => {
 });
 
 elements.libraryList.addEventListener('click', e => {
+    const change = e.target.closest('.book__action--change');
+    if (change) {
+        const id = e.target.parentElement.parentElement.parentElement.id;
+        const index = state.library.books.findIndex(el => el.id === id);
+        state.library.books[index].changeStatus();
+        clearLibrary();
+        state.library.renderLibrary(state.library.books);
+    }
+});
+
+elements.libraryList.addEventListener('click', e => {
     const del = e.target.closest('.book__action--del');
     if(del) {
         const id = e.target.parentElement.parentElement.parentElement.id;
@@ -383,3 +406,16 @@ elements.libraryList.addEventListener('click', e => {
 elements.bookDetails.addEventListener('click', e => {
     e.target.classList.remove('u-visible');
 });
+
+elements.changeBookStatus.addEventListener('click', () => {
+    state.currentBook.changeStatus();
+    clearLibrary();
+    state.library.renderLibrary(state.library.books);
+});
+
+elements.removeBook.addEventListener('click', () => {
+    state.library.deleteBook(state.currentBook.id);
+    clearLibrary();
+    state.library.renderLibrary(state.library.books);
+    elements.bookDetails.classList.remove('u-visible');
+})
