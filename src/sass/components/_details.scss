@@ -67,6 +67,10 @@
         width: 95%;
         vertical-align: center;
         font-size: 1.6rem;
+
+        & p:not(:last-of-type) {
+            padding-bottom: 2rem;
+        }
     }
 
     &__buttons {

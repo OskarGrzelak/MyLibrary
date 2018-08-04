@@ -1,13 +1,22 @@
 .book {
     width: 90%;
     background-color: $color-white;
-    margin: 1rem auto;
+    margin: 1.5rem auto;
     padding: 1rem;
     border-radius: 6px;
     position: relative;
+    transition: all .5s;
+
+    &:hover {
+        transform: scale(1.2);
+    }
 
     &:hover &__actions {
         opacity: 1;
+    }
+
+    &__info {
+        width: 80%;
     }
 
     &__title {

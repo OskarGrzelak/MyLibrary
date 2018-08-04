@@ -1,5 +1,5 @@
 .control-panel {
-    padding: 0 3rem;
+    padding: 4rem 3rem;
 
     &__action {
         width: 100%;
@@ -21,6 +21,7 @@
     background-color: $color-grey-light;
     border-radius: 6px;
     padding: 3rem;
+    height: 78vh;
 
     &__list {
         list-style: none;
@@ -49,7 +50,7 @@
         & li {
             border-radius: 6px;
 
-            &:nth-of-type(2) {
+            &:nth-child(2n) {
                 background-color: $color-grey-light;
             }
         }
