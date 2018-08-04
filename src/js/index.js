@@ -80,6 +80,28 @@ const limitTitle = (title, limit = 42) => {
     return title;
 };
 
+const limitDescription = (description, limit = 700) => {
+    const newDescription = [];
+    if (description.length > limit) {
+        const temp = description.split(' ');
+        temp.reduce((acc, cur) => {
+            if(acc + cur.length <= limit) {
+                newDescription.push(cur);
+            }
+            return acc + cur.length;
+        }, 0);
+        if (newDescription[0].indexOf('<p>') !== -1) {
+            if (newDescription[newDescription.length-1].indexOf('</p>') === -1) {
+                newDescription[newDescription.length-1] += ' (...)</p>';
+            }
+        } else {
+            newDescription[newDescription.length-1] += ' (...)';
+        }
+        return `${newDescription.join(' ')}`;
+    }
+    return description;
+};
+
 const renderResult = (result) => {
     const markup = `
         <li>
@@ -171,7 +193,7 @@ class Library {
         const index = this.books.findIndex(el => el.id === id);
         elements.bookTitle.textContent = this.books[index].title;
         elements.bookAuthor.textContent = this.books[index].author;
-        elements.bookDescription.innerHTML = this.books[index].description;
+        elements.bookDescription.innerHTML = limitDescription(this.books[index].description);
         elements.bookCover.src = this.books[index].cover;
         state.currentBook = this.books[index];
      }
@@ -181,9 +203,11 @@ class Library {
             const markup = `
             <li>
                 <div class="book" id="${book.id}">
-                    <h3 class="book__title">${book.title}</h3>
-                    <p class="book__author">${book.author}</p>
-                    <p class="book__status book__status--not-readed">${book.status === 'not readed' ? 'You have not read this book yet' : 'You have read this book'}</p>
+                    <div class="book__info">
+                        <h3 class="book__title">${limitTitle(book.title, 17)}</h3>
+                        <p class="book__author">${book.author}</p>
+                        <p class="book__status book__status--not-readed">${book.status === 'not readed' ? 'You have not read this book yet' : 'You have read this book'}</p>
+                    </div>
                     <div class="book__actions">
                         <ul>
                             <li class="book__action book__action--show">More</li>
@@ -237,8 +261,10 @@ class WishList {
             const markup = `
             <li>
                 <div class="wish" id="${wish.id}">
-                    <h3 class="wish__title">${wish.title}</h3>
-                    <p class="wish__author">${wish.author}</p>
+                    <div class="wish__info">
+                        <h3 class="wish__title">${limitTitle(wish.title, 16)}</h3>
+                        <p class="wish__author">${wish.author}</p>
+                    </div>
                     <div class="wish__actions">
                         <ul>
                             <li class="wish__action wish__action--add">Add</li>
