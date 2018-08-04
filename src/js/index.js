@@ -138,10 +138,41 @@ class Book {
     async getBook() {
         try {
             const res = await axios(`https://www.googleapis.com/books/v1/volumes/${this.id}?key=AIzaSyCMh3GiKQZWIPumFfEMBEkfKebbMbOLKak`);
-            this.title = res.data.volumeInfo.title;
-            this.author = res.data.volumeInfo.authors;
-            this.description = res.data.volumeInfo.description;
-            this.cover = res.data.volumeInfo.imageLinks.large;
+            console.log(res);
+            if(res.data.volumeInfo.title) {
+                this.title = res.data.volumeInfo.title;
+            } else {
+                this.title = 'unknown title';
+            };
+
+            if(res.data.volumeInfo.authors) {
+                this.author = res.data.volumeInfo.authors;;
+            } else {
+                this.author = 'unknown author';
+            };
+
+            if(res.data.volumeInfo.description) {
+                this.description = res.data.volumeInfo.description;
+            } else {
+                this.description = 'Sorry. There is no description avaible';
+            };
+            
+            if(res.data.volumeInfo.imageLinks.large) {
+                this.cover = res.data.volumeInfo.imageLinks.large;
+            } else if(res.data.volumeInfo.imageLinks.medium) {
+                this.cover = res.data.volumeInfo.imageLinks.medium;
+            } else if(res.data.volumeInfo.imageLinks.small) {
+                this.cover = res.data.volumeInfo.imageLinks.small;
+            } else if(res.data.volumeInfo.imageLinks.thumbnail) {
+                this.cover = res.data.volumeInfo.imageLinks.thumbnail;
+            } else if(res.data.volumeInfo.imageLinks.smallThumbnail) {
+                this.cover = res.data.volumeInfo.imageLinks.smallThumbnail;
+            } else {
+                this.cover = 'https://media.istockphoto.com/photos/question-mark-from-books-searching-information-or-faq-edication-picture-id508545844';
+            };
+            
+            console.log(this);
+            
         } catch (err) {
             console.log(err);
         }
@@ -196,6 +227,7 @@ class Library {
         elements.bookDescription.innerHTML = limitDescription(this.books[index].description);
         elements.bookCover.src = this.books[index].cover;
         state.currentBook = this.books[index];
+        console.log(state.currentBook);
      }
 
     renderLibrary(books) {
