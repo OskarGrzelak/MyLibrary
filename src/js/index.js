@@ -6,9 +6,9 @@ const elements = {
     openSearchPanel: document.getElementById('open-search-panel'),
     searchPanel: document.getElementsByClassName('search')[0],
     searchForm: document.getElementById('new-book-search'),
-    searchTitle: document.getElementById('title'),
-    searchAuthor: document.getElementById('author'),
-    searchISBN: document.getElementById('isbn'),
+    searchTitle: document.getElementById('search-title'),
+    searchAuthor: document.getElementById('search-author'),
+    searchISBN: document.getElementById('search-isbn'),
     searchList: document.getElementById('search-list'),
     addToLib: document.getElementsByClassName('results__action--add'),
     delFromLib: document.getElementsByClassName('book__action--del'),
@@ -20,7 +20,8 @@ const elements = {
     bookCover: document.getElementById('book-cover'),
     bookDescription: document.getElementById('book-description'),
     removeBook: document.getElementById('remove-book'),
-    changeBookStatus: document.getElementById('change-status')
+    changeBookStatus: document.getElementById('change-status'),
+    sortButtons: Array.from(document.getElementsByClassName('control-panel__action--small'))
 };
 
 // SEARCH PANEL
@@ -138,7 +139,6 @@ class Book {
     async getBook() {
         try {
             const res = await axios(`https://www.googleapis.com/books/v1/volumes/${this.id}?key=AIzaSyCMh3GiKQZWIPumFfEMBEkfKebbMbOLKak`);
-            console.log(res);
             if(res.data.volumeInfo.title) {
                 this.title = res.data.volumeInfo.title;
             } else {
@@ -170,9 +170,6 @@ class Book {
             } else {
                 this.cover = 'https://media.istockphoto.com/photos/question-mark-from-books-searching-information-or-faq-edication-picture-id508545844';
             };
-            
-            console.log(this);
-            
         } catch (err) {
             console.log(err);
         }
@@ -220,6 +217,19 @@ class Library {
         this.num--;
     }
 
+    sortBooks(arr, key) {
+        function compare(a,b) {
+            if(a[key] < b[key]) {
+                return 1;
+            }
+            if(a[key] > b[key]) {
+                return -1;
+            }
+            return 0;
+        }
+        arr.sort(compare);
+    }
+
     showBookDetails(id) {
         const index = this.books.findIndex(el => el.id === id);
         elements.bookTitle.textContent = this.books[index].title;
@@ -227,7 +237,6 @@ class Library {
         elements.bookDescription.innerHTML = limitDescription(this.books[index].description);
         elements.bookCover.src = this.books[index].cover;
         state.currentBook = this.books[index];
-        console.log(state.currentBook);
      }
 
     renderLibrary(books) {
@@ -380,6 +389,13 @@ elements.searchList.addEventListener('click', async e => {
         state.library.renderLibrary(state.library.books);
     }
 });
+
+elements.sortButtons.forEach(el => el.addEventListener('click', e => {
+    const key = e.target.id;
+    state.library.sortBooks(state.library.books, key);
+    clearLibrary();
+    state.library.renderLibrary(state.library.books);
+}));
 
 elements.libraryList.addEventListener('click', e => {
     const change = e.target.closest('.book__action--change');
