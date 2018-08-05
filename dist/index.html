@@ -15,19 +15,26 @@
         <header class="header">
             <div class="header__box">
                 <img src="img/LogoMakr_8RzZdp.png" alt="MyLibrary Logo" class="header__logo">
-                <div class="header__sign-area">
+                <!-- <div class="header__sign-area">
                     <a href="#" class="btn">Sign in</a>
                     <a href="#" class="btn">Sign up</a>
-                </div>
+                </div> -->
             </div>    
         </header>
 
         <main>
             <div class="row">
                 <div class="col-1-of-6">
+                    &nbsp;
                     <div class="control-panel">
-                        <div class="control-panel__action" id="open-search-panel">Add new book</div>
-                        <div class="control-panel__action">Sort books</div>
+                        <div class="control-panel__action" id="open-search-panel">
+                            <p>Add new book</p>
+                        </div>
+                        <div class="control-panel__action control-panel__action--sort">
+                            <p>Sort books</p>
+                            <p class="control-panel__action--small" id="sort-title"><span class="control-panel__check-box"></span><span class="control-panel__check-box-inner"></span>&nbsp; by Title</p>
+                            <p class="control-panel__action--small" id="sort-author"><span class="control-panel__check-box "></span><span class="control-panel__check-box-inner"></span>&nbsp; by Author</p>
+                        </div>
                         <!-- <form class="find-book">
                             <input type="text" class="find-book__field" placeholder="Find book in your library">
                                 <button class="btn form-btn">Find</button>
@@ -52,76 +59,6 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </li>
-                            <li>
-                                <div class="book">
-                                    <h3 class="book__title">Some title</h3>
-                                    <p class="book__author">Some author</p>
-                                    <p class="book__status book__status--readed">Readed</p>
-                                    <div class="book__actions">
-                                        <ul>
-                                            <li class="book__action">More</li>
-                                            <li class="book__action">Change status</li>
-                                            <li class="book__action">Delete book</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="book">
-                                    <h3 class="book__title">Some title</h3>
-                                    <p class="book__author">Some author</p>
-                                    <p class="book__status book__status--not-readed">Not readed</p>
-                                    <div class="book__actions">
-                                        <ul>
-                                            <li class="book__action">More</li>
-                                            <li class="book__action">Change status</li>
-                                            <li class="book__action">Delete book</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="book">
-                                    <h3 class="book__title">Some title</h3>
-                                    <p class="book__author">Some author</p>
-                                    <p class="book__status book__status--readed">Readed</p>
-                                    <div class="book__actions">
-                                        <ul>
-                                            <li class="book__action">More</li>
-                                            <li class="book__action">Change status</li>
-                                            <li class="book__action">Delete book</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="book">
-                                    <h3 class="book__title">Some title</h3>
-                                    <p class="book__author">Some author</p>
-                                    <p class="book__status book__status--not-readed">Not readed</p>
-                                    <div class="book__actions">
-                                        <ul>
-                                            <li class="book__action">More</li>
-                                            <li class="book__action">Change status</li>
-                                            <li class="book__action">Delete book</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="book">
-                                    <h3 class="book__title">Some title</h3>
-                                    <p class="book__author">Some author</p>
-                                    <p class="book__status book__status--readed">Readed</p>
-                                    <div class="book__actions">
-                                        <ul>
-                                            <li class="book__action">More</li>
-                                            <li class="book__action">Change status</li>
-                                            <li class="book__action">Delete book</li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </li> -->    
                         </ul>
                     </div>
@@ -131,30 +68,6 @@
                         <h2 class="wish-panel__heading">Wish list</h2>
                         <ul class="wish-panel__list">
                             <!-- <li>
-                                <div class="wish">
-                                    <h3 class="wish__title">Some title</h3>
-                                    <p class="wish__author">Some author</p>
-                                    <div class="wish__actions">
-                                        <ul>
-                                            <li class="wish__action">Add</li>
-                                            <li class="wish__action">Del</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="wish">
-                                    <h3 class="wish__title">Some title</h3>
-                                    <p class="wish__author">Some author</p>
-                                    <div class="wish__actions">
-                                        <ul>
-                                            <li class="wish__action">Add</li>
-                                            <li class="wish__action">Del</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
                                 <div class="wish">
                                     <h3 class="wish__title">Some title</h3>
                                     <p class="wish__author">Some author</p>
