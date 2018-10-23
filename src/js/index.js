@@ -1,4 +1,11 @@
 import axios from 'axios';
+import Book from './models/Book';
+import bookView from './views/bookView';
+import Library from './models/Library';
+import libraryView from './views/libraryView';
+import Wishes from './models/Wishes';
+import wishesView from './views/wishesView';
+
 
 // ELEMENTS
 
@@ -129,203 +136,13 @@ const renderResults = (results) => {
     }
 };
 
-// BOOK
-class Book {
-    constructor(id) {
-        this.id = id;
-        this.status = 'not readed';
-    }
-
-    async getBook() {
-        try {
-            const res = await axios(`https://www.googleapis.com/books/v1/volumes/${this.id}?key=AIzaSyCMh3GiKQZWIPumFfEMBEkfKebbMbOLKak`);
-            if(res.data.volumeInfo.title) {
-                this.title = res.data.volumeInfo.title;
-            } else {
-                this.title = 'unknown title';
-            };
-
-            if(res.data.volumeInfo.authors) {
-                this.author = res.data.volumeInfo.authors;;
-            } else {
-                this.author = 'unknown author';
-            };
-
-            if(res.data.volumeInfo.description) {
-                this.description = res.data.volumeInfo.description;
-            } else {
-                this.description = 'Sorry. There is no description avaible';
-            };
-            
-            if(res.data.volumeInfo.imageLinks.large) {
-                this.cover = res.data.volumeInfo.imageLinks.large;
-            } else if(res.data.volumeInfo.imageLinks.medium) {
-                this.cover = res.data.volumeInfo.imageLinks.medium;
-            } else if(res.data.volumeInfo.imageLinks.small) {
-                this.cover = res.data.volumeInfo.imageLinks.small;
-            } else if(res.data.volumeInfo.imageLinks.thumbnail) {
-                this.cover = res.data.volumeInfo.imageLinks.thumbnail;
-            } else if(res.data.volumeInfo.imageLinks.smallThumbnail) {
-                this.cover = res.data.volumeInfo.imageLinks.smallThumbnail;
-            } else {
-                this.cover = 'https://media.istockphoto.com/photos/question-mark-from-books-searching-information-or-faq-edication-picture-id508545844';
-            };
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    changeStatus() {
-        if (this.status === 'not readed') {
-            this.status = 'readed';
-        } else {
-            this.status = 'not readed';
-        };
-    } 
-}
-
-/* const book = new Book('zyTCAlFPjgYC');
-book.getBook();
-console.log(book);
-//book.showBookDetails();
-const title = book.title;
-console.log(title);
-elements.bookTitle.textContent = book.title;
-console.log(elements.bookTitle.textContent); */
-
-// LIBRARY
-class Library {
-    constructor() {
-        this.books = [];
-        this.num = 0;
-    }
-
-    addNewBook(id) {
-        this.books.push(new Book(id));
-    }
-
-    deleteBook(id) {
-        const index = this.books.findIndex(el => el.id === id);
-        if(this.books.length === 1 || index === this.books.length-1) {
-            this.books.pop();
-        } else {
-            for (let i = index; i < this.books.length-1; i++) {
-                this.books[i] = this.books[i+1];
-            }
-            this.books.pop();
-        }
-        this.num--;
-    }
-
-    sortBooks(arr, key) {
-        function compare(a,b) {
-            if(a[key] < b[key]) {
-                return 1;
-            }
-            if(a[key] > b[key]) {
-                return -1;
-            }
-            return 0;
-        }
-        arr.sort(compare);
-    }
-
-    showBookDetails(id) {
-        const index = this.books.findIndex(el => el.id === id);
-        elements.bookTitle.textContent = this.books[index].title;
-        elements.bookAuthor.textContent = this.books[index].author;
-        elements.bookDescription.innerHTML = limitDescription(this.books[index].description);
-        elements.bookCover.src = this.books[index].cover;
-        state.currentBook = this.books[index];
-     }
-
-    renderLibrary(books) {
-        books.forEach(book => {
-            const markup = `
-            <li>
-                <div class="book" id="${book.id}">
-                    <div class="book__info">
-                        <h3 class="book__title">${limitTitle(book.title, 17)}</h3>
-                        <p class="book__author">${book.author}</p>
-                        <p class="book__status book__status--not-readed">${book.status === 'not readed' ? 'You have not read this book yet' : 'You have read this book'}</p>
-                    </div>
-                    <div class="book__actions">
-                        <ul>
-                            <li class="book__action book__action--show">More</li>
-                            <li class="book__action book__action--change">Change status</li>
-                            <li class="book__action book__action--del">Delete book</li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            `;
-            elements.libraryList.insertAdjacentHTML('afterbegin', markup);
-        });
-    }
-}
-
-const clearLibrary = () => elements.libraryList.innerHTML = '';
-
-// WISH LIST
-class WishList {
-    constructor() {
-        this.wishes = [];
-        this.num = 0;
-    }
-
-    addNewBook(id) {
-        this.wishes.push(new Book(id));
-    }
-
-    moveBook(id) {
-        const index = this.wishes.findIndex(el => el.id === id);
-        state.library.books.push(this.wishes[index]);
-        state.library.num++;
-        this.deleteBook(id);
-    }
-
-    deleteBook(id) {
-        const index = this.wishes.findIndex(el => el.id === id);
-        if(this.wishes.length === 1 || index === this.wishes.length-1) {
-            this.wishes.pop();
-        } else {
-            for (let i = index; i < this.wishes.length-1; i++) {
-                this.wishes[i] = this.wishes[i+1];
-            }
-            this.wishes.pop();
-        }
-        this.num--;
-    }
-
-    renderWishList(wishes) {
-        wishes.forEach(wish => {
-            const markup = `
-            <li>
-                <div class="wish" id="${wish.id}">
-                    <div class="wish__info">
-                        <h3 class="wish__title">${limitTitle(wish.title, 16)}</h3>
-                        <p class="wish__author">${wish.author}</p>
-                    </div>
-                    <div class="wish__actions">
-                        <ul>
-                            <li class="wish__action wish__action--add">Add</li>
-                            <li class="wish__action wish__action--del">Del</li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            `;
-            elements.wishList.insertAdjacentHTML('afterbegin', markup);
-        });
-    }
-}
-
-const clearWishList = () => elements.wishList.innerHTML = '';
-
 // CONTROLLER
 const state = {};
 state.library = new Library();
-state.wishList = new WishList();
+state.libraryView = new libraryView();
+state.wishes = new Wishes();
+state.wishesView = new wishesView();
+state.bookView = new bookView();
 
 //control search
 const controlSearch = async () => {
@@ -368,11 +185,11 @@ elements.searchForm.addEventListener('submit', e => {
 //control library
 const addBookToLibrary = async (id) => {
     // create new book object
-    state.library.addNewBook(id);
+    const book = state.library.addNewBook(id);
+     
 
     try {
-        await state.library.books[state.library.num].getBook();
-        state.library.num++;
+        await book.getBookDetails();
     } catch(err) {
         console.log(err);
     }
@@ -385,16 +202,16 @@ elements.searchList.addEventListener('click', async e => {
         setTimeout(clearResults, 400);
         const id = e.target.parentElement.parentElement.parentElement.id;
         await addBookToLibrary(id);
-        clearLibrary();
-        state.library.renderLibrary(state.library.books);
+        state.libraryView.clearLibrary();
+        state.libraryView.renderLibrary(state.library.books);
     }
 });
 
 elements.sortButtons.forEach(el => el.addEventListener('click', e => {
     const key = e.target.id;
     state.library.sortBooks(state.library.books, key);
-    clearLibrary();
-    state.library.renderLibrary(state.library.books);
+    state.libraryView.clearLibrary();
+    state.libraryView.renderLibrary(state.library.books);
 }));
 
 elements.libraryList.addEventListener('click', e => {
@@ -403,8 +220,8 @@ elements.libraryList.addEventListener('click', e => {
         const id = e.target.parentElement.parentElement.parentElement.id;
         const index = state.library.books.findIndex(el => el.id === id);
         state.library.books[index].changeStatus();
-        clearLibrary();
-        state.library.renderLibrary(state.library.books);
+        state.libraryView.clearLibrary();
+        state.libraryView.renderLibrary(state.library.books);
     }
 });
 
@@ -413,19 +230,18 @@ elements.libraryList.addEventListener('click', e => {
     if(del) {
         const id = e.target.parentElement.parentElement.parentElement.id;
         state.library.deleteBook(id);
-        clearLibrary();
-        state.library.renderLibrary(state.library.books);
+        state.libraryView.clearLibrary();
+        state.libraryView.renderLibrary(state.library.books);
     }
 });
 
 // control wish list
 const addBookToWishList = async (id) => {
     // create new book object
-    state.wishList.addNewBook(id);
+    const wish = state.wishes.addNewBook(id);
 
     try {
-        await state.wishList.wishes[state.wishList.num].getBook();
-        state.wishList.num++;
+        await wish.getBookDetails();
     } catch(err) {
         console.log(err);
     }
@@ -438,8 +254,8 @@ elements.searchList.addEventListener('click', async e => {
         setTimeout(clearResults, 400);
         const id = e.target.parentElement.parentElement.parentElement.id;
         await addBookToWishList(id);
-        clearWishList();
-        state.wishList.renderWishList(state.wishList.wishes);
+        state.wishesView.clearWishList();
+        state.wishesView.renderWishList(state.wishes.wishes);
     }
 });
 
@@ -447,11 +263,11 @@ elements.wishList.addEventListener('click', e => {
     const add = e.target.closest('.wish__action--add');
     if(add) {
         const id = e.target.parentElement.parentElement.parentElement.id;
-        state.wishList.moveBook(id);
-        clearWishList();
-        clearLibrary();
-        state.wishList.renderWishList(state.wishList.wishes);
-        state.library.renderLibrary(state.library.books);
+        state.wishes.moveBook(id, state.library.books);
+        state.wishesView.clearWishList();
+        state.libraryView.clearLibrary();
+        state.wishesView.renderWishList(state.wishes.wishes);
+        state.libraryView.renderLibrary(state.library.books);
     }
 });
 
@@ -459,9 +275,9 @@ elements.wishList.addEventListener('click', e => {
     const del = e.target.closest('.wish__action--del');
     if(del) {
         const id = e.target.parentElement.parentElement.parentElement.id;
-        state.wishList.deleteBook(id);
-        clearWishList();
-        state.wishList.renderWishList(state.wishList.wishes);
+        state.wishes.deleteBook(id);
+        state.wishesView.clearWishList();
+        state.wishesView.renderWishList(state.wishes.wishes);
     }
 });
 
@@ -471,7 +287,7 @@ elements.libraryList.addEventListener('click', e => {
     const show = e.target.closest('.book__action--show');
     if(show) {
         const id = e.target.parentElement.parentElement.parentElement.id;
-        state.library.showBookDetails(id);
+        state.currentBook = state.bookView.showBookDetails(state.library.books, id);
 
         elements.bookDetails.classList.add('u-visible');
     }
@@ -483,13 +299,22 @@ elements.bookDetails.addEventListener('click', e => {
 
 elements.changeBookStatus.addEventListener('click', () => {
     state.currentBook.changeStatus();
-    clearLibrary();
-    state.library.renderLibrary(state.library.books);
+    state.libraryView.clearLibrary();
+    state.libraryView.renderLibrary(state.library.books);
 });
 
 elements.removeBook.addEventListener('click', () => {
     state.library.deleteBook(state.currentBook.id);
-    clearLibrary();
-    state.library.renderLibrary(state.library.books);
+    state.libraryView.clearLibrary();
+    state.libraryView.renderLibrary(state.library.books);
     elements.bookDetails.classList.remove('u-visible');
-})
+});
+
+// read data on load
+
+/* window.addEventListener('load', () => {
+    // read data from local storage
+    console.log(state);
+    state.library.readData();
+    state.window.readData();
+}); */
