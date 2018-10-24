@@ -4,17 +4,21 @@ export default class Library {
         this.books = [];
     }
 
-    addNewBook(id) {
+    async addNewBook(id) {
         const book = new Book(id);
+        try {
+            await book.getBookDetails();
+        } catch(err) {
+            console.log(err);
+        }
         this.books.push(book);
-        /* this.persistData(); */
-        return book;
+        this.persistData();
     }
 
     deleteBook(id) {
         const index = this.books.findIndex(el => el.id === id);
         this.books.splice(index, 1);
-        /* this.persistData(); */
+        this.persistData();
     }
 
     sortBooks(arr, key) {
@@ -30,13 +34,15 @@ export default class Library {
         arr.sort(compare);
     }
 
-    /* persistData() {
-        localStorage.setItem('library', JSON.stringify(this.books));
+    persistData() {
+        console.log(this.books);
+        console.log(JSON.stringify(this.books));
+        localStorage.setItem('library', this.books);
     }
 
     readData() {
         const storage = JSON.parse(localStorage.getItem('library'));
         // restoring likes from the local storage
         if (storage) this.books = storage;
-    } */
+    }
 }

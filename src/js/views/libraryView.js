@@ -1,3 +1,4 @@
+import Book from '../models/Book';
 export default class libraryView {
     constructor() {
         this.elements = {
@@ -7,6 +8,7 @@ export default class libraryView {
 
     renderLibrary(books) {
         books.forEach(book => {
+            console.log(book);
             const markup = `
             <li>
                 <div class="book" id="${book.id}">
