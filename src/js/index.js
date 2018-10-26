@@ -35,11 +35,8 @@ const elements = {
 
 // GLOBAL CONTROLLER
 
-/** Global state for the app
- * - Search object
- * - Current recipe object
- * - Shopping list object
- * - Liked recipes
+/** 
+ * Global state for the app
  */
 const state = {};
 state.library = new Library();
@@ -95,9 +92,9 @@ elements.searchForm.addEventListener('submit', e => {
  * LIBRARY CONTROLLER
  */
 
-const addBookToLibrary = /* async */ (id) => {
+const addBookToLibrary = async (id) => {
     // create new book object
-    state.library.addNewBook(id);
+    await state.library.addNewBook(id);
      
 
     /* try {
@@ -114,8 +111,44 @@ elements.searchList.addEventListener('click', async e => {
         setTimeout(() => state.searchView.clearResults(), 400);
         const id = e.target.parentElement.parentElement.parentElement.id;
         await addBookToLibrary(id);
+        //console.log(state.library.books);
         state.libraryView.clearLibrary();
         state.libraryView.renderLibrary(state.library.books);
+
+
+
+        if (!window.indexedDB) {
+            window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+        }
+        
+        // Let us open our database
+        let request = indexedDB.open("Database", 1);
+        let db, tx, store;
+        request.onupgradeneeded = function(e) {
+        let db = request.result;
+        let store = db.createObjectStore('Collection', { keyPath: 'type' });
+    };
+        request.onerror = function(e) {
+            console.log('error ' + e.target.errorCode);
+        };
+        request.onsuccess = function(e) {
+            db = request.result;
+            tx = db.transaction('Collection', 'readwrite');
+            store = tx.objectStore('Collection');
+        
+            db.onerror = function(e) {
+                console.log('error ' + e.target.errorCode);
+            };
+            console.log('adding do db');
+            console.log(state.library.books);
+            store.put({ type: 'library', data: state.library.books });
+
+            tx.oncomplete = function() {
+                db.close();
+            };
+
+            console.log(store);
+        };
     }
 });
 
@@ -230,12 +263,64 @@ elements.removeBook.addEventListener('click', () => {
 // read data on load
 
 window.addEventListener('load', () => {
-    // read data from local storage
+    /* // read data from local storage
     state.library.readData();
     console.log(state.library.books);
 
-    state.libraryView.renderLibrary(state.library.books);
+    state.libraryView.renderLibrary(state.library.books); */
 
+    if (!window.indexedDB) {
+        window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+    }
+    
+    // Let us open our database
+    let request = indexedDB.open("Database", 1);
+    let db, tx, store;
+    request.onupgradeneeded = function(e) {
+        console.log('upgrading');
+        let db = request.result;
+        let store = db.createObjectStore('Collection', { keyPath: 'type' });
+    };
+    request.onerror = function(e) {
+        console.log('error ' + e.target.errorCode);
+    };
+    request.onsuccess = function(e) {
+        console.log('success');
+        db = request.result;
+        tx = db.transaction('Collection', 'readwrite');
+        store = tx.objectStore('Collection');
+    
+        db.onerror = function(e) {
+            console.log('error ' + e.target.errorCode);
+        };
+
+        let retrievedData = store.get('library');
+
+        retrievedData.onsuccess = function(e) {
+            if (retrievedData.result) console.log(retrievedData);
+            if (retrievedData.result) state.library.books = retrievedData.result.data;
+            state.libraryView.renderLibrary(state.library.books);
+            console.log(state.library.books);
+        }
+
+        //store.delete('library');
+
+        tx.oncomplete = function() {
+            db.close();
+        };
+    };
 });
 
-//localStorage.removeItem('library');
+/* localStorage.removeItem('library'); */
+
+/* var DBDeleteRequest = window.indexedDB.deleteDatabase("Database");
+
+DBDeleteRequest.onerror = function(event) {
+  console.log("Error deleting database.");
+};
+ 
+DBDeleteRequest.onsuccess = function(event) {
+  console.log("Database deleted successfully");
+    
+  console.log(event.result); // should be undefined
+}; */

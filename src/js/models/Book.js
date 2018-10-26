@@ -15,7 +15,7 @@ export default class Book {
             };
 
             if(res.data.volumeInfo.authors) {
-                this.author = res.data.volumeInfo.authors;;
+                this.author = res.data.volumeInfo.authors;
             } else {
                 this.author = 'unknown author';
             };
