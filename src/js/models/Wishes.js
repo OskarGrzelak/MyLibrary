@@ -1,14 +1,17 @@
-import Book from './Book';
+import { getBookDetails } from '../views/book';
 export default class Wishes {
     constructor() {
         this.wishes = [];
     }
 
-    addNewBook(id) {
-        const book = new Book(id);
+    async addNewBook(id) {
+        const book = { id: id, status: 'not readed' };
+        try {
+            await getBookDetails(book);
+        } catch(err) {
+            console.log(err);
+        }
         this.wishes.push(book);
-        /* this.persistData(); */
-        return book;
     }
 
     moveBook(id, books) {

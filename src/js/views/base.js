@@ -1,0 +1,21 @@
+export const elements = {
+    openSearchPanel: document.getElementById('open-search-panel'),
+    searchPanel: document.getElementsByClassName('search')[0],
+    searchForm: document.getElementById('new-book-search'),
+    searchTitle: document.getElementById('search-title'),
+    searchAuthor: document.getElementById('search-author'),
+    searchISBN: document.getElementById('search-isbn'),
+    searchList: document.getElementById('search-list'),
+    addToLib: document.getElementsByClassName('results__action--add'),
+    delFromLib: document.getElementsByClassName('book__action--del'),
+    libraryList: document.getElementsByClassName('books-panel__list')[0],
+    wishList: document.getElementsByClassName('wish-panel__list')[0],
+    bookDetails: document.getElementsByClassName('details')[0],
+    bookTitle: document.getElementById('book-title'),
+    bookAuthor: document.getElementById('book-author'),
+    bookCover: document.getElementById('book-cover'),
+    bookDescription: document.getElementById('book-description'),
+    removeBook: document.getElementById('remove-book'),
+    changeBookStatus: document.getElementById('change-status'),
+    sortButtons: Array.from(document.getElementsByClassName('control-panel__action--small'))
+};

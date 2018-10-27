@@ -1,13 +1,13 @@
-import Book from './Book';
+import { getBookDetails } from '../views/book';
 export default class Library {
     constructor() {
         this.books = [];
     }
 
     async addNewBook(id) {
-        const book = new Book(id);
+        const book = { id: id, status: 'not readed' };
         try {
-            await book.getBookDetails();
+            await getBookDetails(book);
         } catch(err) {
             console.log(err);
         }

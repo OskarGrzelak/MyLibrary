@@ -1,19 +1,13 @@
-import Book from '../models/Book';
-export default class libraryView {
-    constructor() {
-        this.elements = {
-            libraryList: document.getElementsByClassName('books-panel__list')[0]
-        }
-    }
+import { elements } from './base';
+import { limitTitle } from './book';
 
-    renderLibrary(books) {
-        books.forEach(book => {
-            console.log(book);
-            const markup = `
+export const renderLibrary = (books) => {
+    books.forEach(book => {
+        const markup = `
             <li>
                 <div class="book" id="${book.id}">
                     <div class="book__info">
-                        <h3 class="book__title">${book.title}</h3>
+                        <h3 class="book__title">${limitTitle(book, 20)}</h3>
                         <p class="book__author">${book.author}</p>
                         <p class="book__status book__status--not-readed">${book.status === 'not readed' ? 'You have not read this book yet' : 'You have read this book'}</p>
                     </div>
@@ -26,12 +20,9 @@ export default class libraryView {
                     </div>
                 </div>
             </li>
-            `;
-            this.elements.libraryList.insertAdjacentHTML('afterbegin', markup);
-        });
-    }
+        `;
+        elements.libraryList.insertAdjacentHTML('afterbegin', markup);
+    });
+};
 
-    clearLibrary() {
-        this.elements.libraryList.innerHTML = '';
-    }
-}
+export const clearLibrary = () => elements.libraryList.innerHTML = '';
