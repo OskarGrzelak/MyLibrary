@@ -7,6 +7,14 @@
 html {
     box-sizing: border-box;
     font-size: 62.5%;
+
+    @include respond(tab-land) {
+        font-size: 56.25%;
+    }
+
+    @include respond(tab-port) {
+        font-size: 50%;
+    }
 }
 
 body {
@@ -28,4 +36,8 @@ body {
     border-radius: 6px;
     box-shadow: 0 2rem 6rem 0.5rem rgba($color-grey-dark, 0.4);
     padding-bottom: 3rem;
+
+    @include respond(tab-port) {
+        min-height: 100vh;
+    }
 }

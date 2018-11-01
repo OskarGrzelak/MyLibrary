@@ -2,6 +2,13 @@
     padding: 4rem 3rem;
     position: fixed;
 
+    @include respond(tab-port) {
+        position: absolute;
+        top: -2.5rem;
+        right: 0;
+        z-index: 150;
+    }
+
     &__action {
         width: 100%;
         padding: .5rem;
@@ -19,6 +26,23 @@
             &:hover .control-panel__action--small {
                 display: block;
                 opacity: 1;
+
+                @include respond(tab-port) {
+                    display: inline-block;
+                }
+            }
+            & p {
+                @include respond(tab-port) {
+                    display: inline-block;
+                }
+            }
+        }
+
+        &--wishes {
+            display: none;
+
+            @include respond(tab-port) {
+                display: block;
             }
         }
 
@@ -75,6 +99,11 @@
     padding: 3rem;
     min-height: 78vh;
 
+    @include respond(tab-port) {
+        min-height: auto;
+        margin-top: 5rem;
+    }
+
     &__list {
         list-style: none;
     }
@@ -82,6 +111,10 @@
 
 .wish-panel {
     padding: 0 3rem;
+
+    @include respond(tab-port) {
+        display: none;
+    }
 
     &__heading {
         text-align: center;

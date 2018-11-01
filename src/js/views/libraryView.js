@@ -7,7 +7,7 @@ export const renderLibrary = (books) => {
             <li>
                 <div class="book" id="${book.id}">
                     <div class="book__info">
-                        <h3 class="book__title">${limitTitle(book, 20)}</h3>
+                        <h3 class="book__title">${limitTitle(book, 19)}</h3>
                         <p class="book__author">${book.author}</p>
                         <p class="book__status book__status--not-readed">${book.status === 'not readed' ? 'You have not read this book yet' : 'You have read this book'}</p>
                     </div>

@@ -11,6 +11,11 @@
     [class^="col-"] {
         float: left;
 
+        @include respond(tab-port) {
+            float: none;
+            width: 100% !important;
+        }
+
         &:not(:last-child) {
             margin-right: $gutter-horizontal;
         }
