@@ -20,6 +20,35 @@ import { saveIndexedDB, loadIndexedDB, destroyIndexedDB } from './views/db';
 const state = {};
 
 /**
+ * MENU CONTROLLER
+ */
+
+elements.menuButton.addEventListener('click', () => {
+    console.log('clicked');
+    if (elements.controlPanel.style.display === 'none') {
+        elements.controlPanel.style.display = 'block';
+    } else {
+        elements.controlPanel.style.display = 'none';
+    }
+});
+
+elements.toggleLibrary.addEventListener('click', el => {
+    console.log(el.target.innerHTML);
+    if (el.target.innerHTML === 'Wish list') {
+        elements.libraryPanel.style.display = 'none';
+        elements.wishPanel.style.display = 'block';
+        el.target.innerHTML = 'Books list';
+        elements.controlPanel.style.display = 'none';
+
+    } else {
+        elements.wishPanel.style.display = 'none';
+        elements.libraryPanel.style.display = 'block';
+        el.target.innerHTML = '<p>Wish list</p>';
+        elements.controlPanel.style.display = 'none';
+    }
+}); 
+
+/**
  * SEARCH CONTROLLER
  */
 
@@ -77,7 +106,6 @@ elements.searchList.addEventListener('click', async e => {
         setTimeout(() => searchView.clearResults(), 400);
         const id = e.target.parentElement.parentElement.parentElement.id;
         await addBookToLibrary(id);
-        //console.log(state.library.books);
         libraryView.clearLibrary();
         libraryView.renderLibrary(state.library.books);
 
@@ -204,7 +232,9 @@ elements.removeBook.addEventListener('click', () => {
     saveIndexedDB('library', state.library.books);
 });
 
-// read data on load
+ /**
+ * ON LOAD CONTROLLER
+ */
 
 window.addEventListener('load',() => {
 

@@ -1,4 +1,7 @@
 export const elements = {
+    menuButton: document.querySelector('.header__menu'),
+    controlPanel: document.querySelector('.control-panel'),
+    toggleLibrary: document.querySelector('.control-panel__action--toggle-library'),
     openSearchPanel: document.getElementById('open-search-panel'),
     searchPanel: document.getElementsByClassName('search')[0],
     searchForm: document.getElementById('new-book-search'),
@@ -8,7 +11,9 @@ export const elements = {
     searchList: document.getElementById('search-list'),
     addToLib: document.getElementsByClassName('results__action--add'),
     delFromLib: document.getElementsByClassName('book__action--del'),
+    libraryPanel: document.getElementsByClassName('books-panel')[0],
     libraryList: document.getElementsByClassName('books-panel__list')[0],
+    wishPanel: document.getElementsByClassName('wish-panel')[0],
     wishList: document.getElementsByClassName('wish-panel__list')[0],
     bookDetails: document.getElementsByClassName('details')[0],
     bookTitle: document.getElementById('book-title'),

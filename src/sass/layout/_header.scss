@@ -2,6 +2,7 @@
     position: relative;
     width: 100%;
     height: 8rem;
+    z-index: 120;
 
     &__box {
         position: fixed;
@@ -29,5 +30,49 @@
         top: 50%;
         right: 3rem;
         transform: translateY(-50%);
+    }
+
+    &__menu {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 3rem;
+        height: 3rem;
+        width: 3rem;
+        visibility: hidden;
+
+        @include respond(tab-port) {
+            visibility: visible;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        transform: translateY(1rem);
+
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-main;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+
+        &::before {
+            top: -.8rem;
+        }
+
+        &::after {
+            top: .8rem;
+        }
     }
 }

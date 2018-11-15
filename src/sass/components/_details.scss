@@ -3,9 +3,10 @@
     width: 100%;
     background-color: rgba($color-black, .9);
     position: fixed;
+    overflow: auto;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 120;
     opacity: 0;
     visibility: hidden;
     transition: all .4s;
@@ -20,6 +21,10 @@
         background-color: $color-white;
         border-radius: 6px;
         box-shadow: 0 2rem 4rem rgba($color-black, .2);
+
+        @include respond(tab-land) {
+            padding: 2rem;
+        }
     }
 
     &__table {
@@ -49,18 +54,35 @@
         display: table-cell;
         width: 33.3333%;
         vertical-align: top;
+
+        @include respond(tab-port) {
+            display: block;
+            width: 100%;
+            margin-bottom: 3rem;
+        }
     }
 
     &__cover {
         height: 40rem;
         width: auto;
+        padding: 1rem;
         display: block;
+
+        @include respond(tab-port) {
+            margin: 0 auto;
+        }
     }
 
     &__right {
         display: table-cell;
         width: 66.6667%;
         vertical-align: top;
+
+        @include respond(tab-port) {
+            display: block;
+            width: 100%;
+            margin-bottom: 3rem;
+        }
     }
 
     &__description {
@@ -77,5 +99,16 @@
         position: absolute;
         right: 5rem;
         bottom: 5rem;
+
+        @include respond(tab-land) {
+            right: 2rem;
+            bottom: 2rem;
+        }
+
+        @include respond(tab-port) {
+            position: unset;
+            display: block;
+            text-align: right;
+        }
     }
 }

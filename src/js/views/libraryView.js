@@ -4,7 +4,7 @@ import { limitTitle } from './book';
 export const renderLibrary = (books) => {
     books.forEach(book => {
         const markup = `
-            <li>
+            <d>
                 <div class="book" id="${book.id}">
                     <div class="book__info">
                         <h3 class="book__title">${limitTitle(book, 19)}</h3>
@@ -13,9 +13,9 @@ export const renderLibrary = (books) => {
                     </div>
                     <div class="book__actions">
                         <ul>
-                            <li class="book__action book__action--show">More</li>
-                            <li class="book__action book__action--change">Change status</li>
-                            <li class="book__action book__action--del">Delete book</li>
+                            <div class="book__action book__action--show">More info</div>
+                            <div class="book__action book__action--change">Change status</div>
+                            <div class="book__action book__action--del">Delete book</div>
                         </ul>
                     </div>
                 </div>
